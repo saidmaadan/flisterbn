@@ -16,5 +16,7 @@
 /node_modules
 /yarn-error.
 /housekeeper
+/.env
+.env
 
 .byebug_history
