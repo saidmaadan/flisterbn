@@ -1,6 +1,6 @@
 @import "bootstrap";
 @import "font-awesome";
-@import "toastr"
+@import "toastr";
 
 .avatar_small{
   width: 28px;
@@ -13,4 +13,8 @@
 }
 .avatar_full{
   width: 100%;
+}
+
+.register-form{
+  margin-top: 40px;
 }

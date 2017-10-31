@@ -14,6 +14,7 @@
 !/tmp/.keep
 
 /node_modules
-/yarn-error.log
+/yarn-error.
+/housekeeper
 
 .byebug_history
