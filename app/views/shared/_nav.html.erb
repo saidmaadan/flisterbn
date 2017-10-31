@@ -21,12 +21,14 @@
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown link
+              <%= current_user.email %>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#">Manage Listing</a>
+              <a class="dropdown-item" href="#">List Your Property</a>
+              <a class="dropdown-item" href="#">Your Trips</a>
+              <%= link_to "Update Profile", edit_user_registration_path, class: "dropdown-item" %>
+              <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
           <li class="nav-item">
