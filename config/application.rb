@@ -10,6 +10,7 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
+require "dotenv-rails"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -18,7 +19,7 @@ Bundler.require(*Rails.groups)
 
 module Flisters
   class Application < Rails::Application
-    config.secret_key_base = ENV["SECRET_KEY_BASE"]
+    # config.secret_key_base = ENV["SECRET_KEY_BASE"]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 

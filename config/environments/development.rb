@@ -56,10 +56,10 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.mailgun.org',
     post: 587,
-    domain: 'MAILGUN_DOMAIN',
+    domain: ENV.fetch('MAILGUN_DOMAIN'),
     authentication: 'plain',
-    user_name: 'MAILGUN_USERNAME',
-    password: 'MAILGUN_PASSWORD'
+    user_name: ENV.fetch('MAILGUN_USERNAME'),
+    password: ENV.fetch('MAILGUN_PASSWORD')
 
   }
 
@@ -68,8 +68,8 @@ Rails.application.configure do
   #   post: 587,
   #   enable_starttls_auto: true,
   #   authentication: 'plain',
-  #   user_name: 'GMAIL_USERNAME',
-  #   password: 'GMAIL_PASSWORD5'
+  #   user_name: ENV.fetch('GMAIL_USERNAME'),
+  #   password: ENV.fetch('GMAIL_PASSWORD5')
   #
   # }
 end
