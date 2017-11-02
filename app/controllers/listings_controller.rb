@@ -1,6 +1,7 @@
 class ListingsController < ApplicationController
   before_action :set_listing, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:show]
+  before_action :is_authorized, only: [:listing, :pricing, :description, :amenities, :photo_upload, :location, :update]
 
   def index
     @listings = current_user.listings
@@ -33,6 +34,7 @@ class ListingsController < ApplicationController
   end
 
   def photo_upload
+    @photos = @listing.photos
   end
 
   def amenities
@@ -53,6 +55,10 @@ class ListingsController < ApplicationController
   private
     def set_listing
       @listing = Listing.find(params[:id])
+    end
+
+    def is_authorized
+      redirect_to root_path, alert: "You don't have permission" unless current_user.id == @listing.user_id
     end
 
     def listing_params
