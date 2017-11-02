@@ -267,12 +267,13 @@ a {
   display: block;
 }
 
-.panel-heading.preview {
+.card-header.preview {
   padding: 0;
 }
 
-.panel-heading.preview img {
+.card-header.preview img {
   width: 100%;
+  height: 200px;
 }
 
 // ROOM SHOW

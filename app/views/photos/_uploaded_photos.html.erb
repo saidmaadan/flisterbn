@@ -1,0 +1,15 @@
+<% if @photos.count > 0 %>
+  <div class="container">
+    <div class="row">
+      <% @photos.each do |photo| %>
+        <div class="col-md-4 col-sm-6">
+          <div class="card">
+            <div class="card-header preview">
+              <%= image_tag photo.image.url() %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
