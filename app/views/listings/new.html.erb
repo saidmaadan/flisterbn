@@ -1,0 +1,60 @@
+<div class="card card-default">
+  <div class="card-header">
+    Create your beautiful place
+  </div>
+  <div class="card-body">
+    <div class="container-flow">
+
+      <%= form_for @listing do |f| %>
+
+        <div class="row">
+
+          <div class="col-md-4 select">
+            <div class="form-group">
+              <label>Listing Type</label>
+              <%= f.select :listing_type, [["Apartment", "Apartment"], ["House", "House"], ["Bed & Breakfast", "Bed & Breakfast"]],
+                            id: "listing_type", prompt: "Select...", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4 select">
+            <div class="form-group">
+              <label>Apartment Type</label>
+              <%= f.select :apartment_type, [["Entire", "Entire"], ["Private", "Private"], ["Shared", "Shared"]],
+                            id: "apartment_type", prompt: "Select...", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4 select">
+            <div class="form-group">
+              <label>Accommodate</label>
+              <%= f.select :accommodate, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]],
+                            id: "accommodate", prompt: "Select...", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4 select">
+            <div class="form-group">
+              <label>Bedrooms</label>
+              <%= f.select :bedroom, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7+", 7]],
+                            id: "bedroom", prompt: "Select...", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4 select">
+            <div class="form-group">
+              <label>Bathrooms</label>
+              <%= f.select :bathroom, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7+", 7]],
+                            id: "bathrooms", prompt: "Select...", class: "form-control" %>
+            </div>
+          </div>
+
+        </div>
+
+        <div><%= f.submit "Create My Listing", class: "btn btn-normal" %></div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

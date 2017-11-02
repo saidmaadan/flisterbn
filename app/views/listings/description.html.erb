@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'listing_nav' %>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header">
+          Description
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <%= form_for @listing do |f| %>
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label>Listing Title</label>
+                  <%= f.text_field :listing_name, placeholder: "Give your Listing a title", class: "form-control" %>
+                </div>
+
+                <div class="col-md-12 form-group">
+                  <label>Listing Title</label>
+                  <%= f.text_area :summary, placeholder: "Brief description of your listing", rows: 5, cols: 25, class: "form-control" %>
+                </div>
+                <div class="text-center">
+                  <%= f.submit "Save", class: "btn btn-form" %>
+                </div>
+              </div>  
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

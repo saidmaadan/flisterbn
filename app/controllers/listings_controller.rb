@@ -1,4 +1,4 @@
-class ListingController < ApplicationController
+class ListingsController < ApplicationController
   before_action :set_listing, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:show]
 
@@ -44,18 +44,18 @@ class ListingController < ApplicationController
     if @listing.update(listing_params)
       flash[:notice] = "saved..."
     else
-      flash[notice:] "Something went wrong"
+      flash[:notice] = "Something went wrong"
     end
       redirect_back(fallback_location: request.referer)
   end
 
   private
     def set_listing
-      @listings = Listing.find(params[id])
+      @listing = Listing.find(params[:id])
     end
 
     def listing_params
-      params.require(:listing).permit(:listing_type, :apartment_type, :accomodate,
+      params.require(:listing).permit(:listing_type, :apartment_type, :accommodate,
                                       :bedroom, :bathroom, :listing_name, :summary,
                                       :address, :tv, :kitchen, :air, :heating, :internet,
                                       :price, :active)

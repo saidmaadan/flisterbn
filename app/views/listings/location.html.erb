@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'listing_nav' %>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header">
+          Location
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <%= form_for @listing do |f| %>
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label>Address</label>
+                  <%= f.text_field :address, placeholder: "What is your address?", class: "form-control" %>
+                </div>
+              </div>
+              <div class="text-center">
+                <%= f.submit "Save", class: "btn btn-form" %>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

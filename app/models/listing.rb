@@ -3,7 +3,7 @@ class Listing < ApplicationRecord
 
   validates :listing_type, presence: true
   validates :apartment_type, presence: true
-  validates :accomodate, presence: true
+  validates :accommodate, presence: true
   validates :bedroom, presence: true
   validates :bathroom, presence: true
 end
