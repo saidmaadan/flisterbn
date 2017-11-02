@@ -5,17 +5,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable
 
-  validates :password, length: { minimum: 6, allow_blank: true }
+  # validates :password, length: { minimum: 6, allow_blank: true }
 
-  validates :email, presence: true,
-                  format: /\A\S+@\S+\z/,
-                  uniqueness: { case_sensitive: false }
+  # validates :email, presence: true,
+  #                 format: /\A\S+@\S+\z/,
+  #                 uniqueness: { case_sensitive: false }
 
   validates :first_name, presence: true, length:{maximum: 20}
-  validates :last_name, presence: true,  length:{maximum: 20}
-  validates :username, presence: true,
-                     format: /\A[A-Z0-9]+\z/i,
-                     uniqueness: { case_sensitive: false }
+  # validates :last_name, presence: true,  length:{maximum: 20}
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+
+
 
    def full_name
      [first_name, last_name].join(" ")
@@ -30,8 +30,10 @@ class User < ApplicationRecord
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.email = auth.info.email
         user.password = Devise.friendly_token[0,20]
-        user.first_name = auth.info.name
-        # user.username = auth.info.username
+        user.first_name = auth.info.first_name
+        user.last_name = auth.info.last_name
+        user.full_name = auth.info.name
+        user.username = auth.extra.raw_info.username
         user.image = auth.info.image
         user.uid = auth.uid
         user.provider = auth.provider

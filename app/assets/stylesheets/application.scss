@@ -13,8 +13,9 @@ a {
   color: #00A699;
 }
 
-.container {
-  width: 90%;
+.container-profile {
+  width: 80%;
+  margin: auto;
 }
 
 .text-flister, .icon-flister {
@@ -213,7 +214,7 @@ a {
 }
 
 // SIDEBAR
-.sidebar-list {
+.sidebar-profile {
   padding-left: 0;
   list-style: none;
 }
@@ -238,6 +239,10 @@ a {
   color: #565A5C;
   font-weight: bold;
   text-decoration: none;
+}
+
+.profile-link{
+  color: #00A699;
 }
 
 // PHOTO UPLOAD

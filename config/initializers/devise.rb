@@ -275,5 +275,5 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-  config.omniauth :facebook, ENV.fetch('API_KEY'), ENV.fetch('API_SECRET'), scope: 'email', info_fields: 'email, name'
+  config.omniauth :facebook, ENV.fetch('API_KEY'), ENV.fetch('API_SECRET'), scope: 'email', info_fields: 'email, first_name, last_name, name', extra_fields:{ raw_info_fieds: 'username'}
 end
