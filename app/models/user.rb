@@ -15,7 +15,7 @@ class User < ApplicationRecord
   # validates :last_name, presence: true,  length:{maximum: 20}
   validates :username, presence: true, uniqueness: { case_sensitive: false }
 
-
+  has_many :listings
 
    def full_name
      [first_name, last_name].join(" ")
