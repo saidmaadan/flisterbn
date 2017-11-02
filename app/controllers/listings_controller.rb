@@ -15,7 +15,8 @@ class ListingsController < ApplicationController
     if @listing.save
       redirect_to listing_listing_path(@listing), notice: "Saved..."
     else
-      render :new, notice: "Something went wrong"
+      flash[:alert] = "Something went wrong"
+      render :new
     end
   end
 
