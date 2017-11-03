@@ -1,2 +1,36 @@
-<h1>Listing#index</h1>
-<p>Find me in app/views/listing/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="sidebar-list">
+        <li class="sidebar-item"><%= link_to "Your Listings", listings_path, class: "sidebar-link active" %></li>
+        <li class="sidebar-item"><%= link_to "Your Reservations", listings_path, class: "sidebar-link" %></li>
+        <li class="sidebar-item"><%= link_to "Your Trips", listings_path, class: "sidebar-link" %></li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header">
+          Listings
+        </div>
+        <div class="card-body">
+
+          <% @listings.each do |listing| %>
+            <div class="row">
+              <div class="col-md-2">
+                <%= image_tag listing.backgroud_image(:thumb) %>
+              </div>
+              <div class="col-md-7">
+                <h4><%= listing.listing_name %></h4>
+              </div>
+              <div class="col-md-3 right">
+                <%= link_to "Update", listing_listing_path(listing), class: "btn btn-form" %>
+              </div>
+            </div>
+            <hr/>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -22,4 +22,12 @@ class Listing < ApplicationRecord
     validates :bathroom, presence: true
     #validates :listing_name, presence: true
 
+    def backgroud_image(size)
+      if self.photos.length > 0
+        self.photos[0].image.url(size)
+      else
+        "listings-blank.jpg"
+      end
+    end
+
 end

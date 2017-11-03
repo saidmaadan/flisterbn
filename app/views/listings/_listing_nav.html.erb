@@ -34,7 +34,7 @@
 </ul>
 <hr/>
 
-<% listing_ready = !@listing.active && !@listing.price.blank? && !@listing.listing_name.blank? && !@listing.photos.blank? && !@listing.address.blank? %>
+<% listing_ready = !@listing.active && !@listing.price.blank? && !@listing.summary.blank? && !@listing.photos.blank? && !@listing.address.blank? %>
 
 <%= form_for @listing do |f| %>
   <%= f.hidden_field :active, value: true %>
