@@ -56,7 +56,7 @@ class ListingsController < ApplicationController
 
   private
     def set_listing
-      @listing = Listing.find(params[:id])
+      @listing = Listing.friendly.find(params[:id])
     end
 
     def is_authorized

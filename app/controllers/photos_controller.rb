@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
 
   def create
-    @listing = Listing.find(params[:listing_id])
+    @listing = Listing.friendly.find(params[:listing_id])
     if params[:images]
       params[:images].each do |img|
         @listing.photos.create(image: img)
@@ -13,7 +13,7 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    @photo = Photo.find(params[:id])
+    @photo = Photo.friendly.find(params[:id])
     @listing = @photo.listing
 
     @photo.destroy

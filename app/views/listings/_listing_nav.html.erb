@@ -11,7 +11,7 @@
   </li>
   <li class="sidebar-item">
     <%= link_to "Description", description_listing_path, class: "sidebar-link active" %>
-    <% if !@listing.listing_name.blank? %>
+    <% if !@listing.summary.blank? %>
       <span class="float-right text-flister"><i class="fa fa-check"></i></span>
     <% end %>
   </li>

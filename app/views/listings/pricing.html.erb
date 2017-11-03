@@ -12,7 +12,7 @@
           <div class="container">
             <%= form_for @listing do |f| %>
               <div class="row">
-                <div class="form-group">
+                <div class="col-md-12 form-group input-text">
                   <label>Price</label>
                   <%= f.text_field :price, placeholder: "$200", class: "form-control", required: true %>
                 </div>
