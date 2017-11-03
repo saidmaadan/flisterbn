@@ -1,26 +1,42 @@
 <ul class="sidebar-list">
   <li class="sidebar-item">
     <%= link_to "Listing", listing_listing_path, class: "sidebar-link active" %>
-    <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <span class="float-right text-flister"><i class="fa fa-check"></i></span>
   </li>
   <li class="sidebar-item">
     <%= link_to "Pricing", pricing_listing_path, class: "sidebar-link active" %>
-
+    <% if !@listing.price.blank? %>
+      <span class="float-right text-flister"><i class="fa fa-check"></i></span>
+    <% end %>
   </li>
   <li class="sidebar-item">
     <%= link_to "Description", description_listing_path, class: "sidebar-link active" %>
-
+    <% if !@listing.listing_name.blank? %>
+      <span class="float-right text-flister"><i class="fa fa-check"></i></span>
+    <% end %>
   </li>
   <li class="sidebar-item">
     <%= link_to "Photos", photo_upload_listing_path, class: "sidebar-link active" %>
-
+    <% if !@listing.photos.blank? %>
+      <span class="float-right text-flister"><i class="fa fa-check"></i></span>
+    <% end %>
   </li>
   <li class="sidebar-item">
     <%= link_to "Amenities", amenities_listing_path, class: "sidebar-link active" %>
-    <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <span class="float-right text-flister"><i class="fa fa-check"></i></span>
   </li>
   <li class="sidebar-item">
     <%= link_to "Location", location_listing_path, class: "sidebar-link active" %>
+    <% if !@listing.address.blank? %>
+      <span class="float-right text-flister"><i class="fa fa-check"></i></span>
+    <% end %>
   </li>
 </ul>
 <hr/>
+
+<% listing_ready = !@listing.active && !@listing.price.blank? && !@listing.listing_name.blank? && !@listing.photos.blank? && !@listing.address.blank? %>
+
+<%= form_for @listing do |f| %>
+  <%= f.hidden_field :active, value: true %>
+  <%= f.submit "Publish", id: "publish_button", class: "btn btn-normal btn-block", disabled: !listing_ready %>
+<% end %>

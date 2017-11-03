@@ -7,5 +7,5 @@ class Listing < ApplicationRecord
   validates :accommodate, presence: true
   validates :bedroom, presence: true
   validates :bathroom, presence: true
-  #validates :price, numericality: {greater_than: 0.0}
+
 end
