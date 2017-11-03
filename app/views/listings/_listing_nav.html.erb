@@ -18,7 +18,7 @@
   <li class="sidebar-item">
     <%= link_to "Photos", photo_upload_listing_path, class: "sidebar-link active" %>
     <% if !@listing.photos.blank? %>
-      <span class="float-right text-flister"><i class="fa fa-check"></i></span>
+      <span id="check_upload" class="float-right text-flister"><i class="fa fa-check"></i></span>
     <% end %>
   </li>
   <li class="sidebar-item">
@@ -38,5 +38,5 @@
 
 <%= form_for @listing do |f| %>
   <%= f.hidden_field :active, value: true %>
-  <%= f.submit "Publish", id: "publish_button", class: "btn btn-normal btn-block", disabled: !listing_ready %>
+  <%= f.submit "Publish", id: "activate_publish_btn", class: "btn btn-normal btn-block", disabled: !listing_ready %>
 <% end %>

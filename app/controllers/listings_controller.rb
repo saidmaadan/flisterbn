@@ -44,7 +44,9 @@ class ListingsController < ApplicationController
   end
 
   def update
-    if @listing.update(listing_params)
+    new_params = listing_params
+    new_params = listing_params.merge(active: true) if listing_is_ready
+    if @listing.update(new_params)
       flash[:notice] = "saved..."
     else
       flash[:notice] = "Something went wrong"
@@ -59,6 +61,10 @@ class ListingsController < ApplicationController
 
     def is_authorized
       redirect_to root_path, alert: "You don't have permission" unless current_user.id == @listing.user_id
+    end
+
+    def listing_is_ready
+      !@listing.active && !@listing.price.blank? && !@listing.listing_name.blank? && !@listing.photos.blank? && !@listing.address.blank?
     end
 
     def listing_params

@@ -1,1 +1,10 @@
 $('#photos').html("<%= j render 'uploaded_photos' %>")
+<% if @listing.photos.blank? %>
+  $('#check_upload').hide();
+<% end %>
+
+<% if !@listing.active && !@listing.price.blank? && !@listing.listing_name.blank? && !@listing.photos.blank? && !@listing.address.blank? %>
+    $('#activate_publish_btn').attr('disabled', false);
+<% else %>
+    $('#activate_publish_btn').attr('disabled', true);
+<% end %>
