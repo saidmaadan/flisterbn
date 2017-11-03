@@ -7,6 +7,14 @@
             <div class="card-header preview">
               <%= image_tag photo.image.url() %>
             </div>
+            <div class="card-body">
+              <span class="float-right">
+                <%= link_to listing_photo_path(photo.listing_id, photo), remote: true, method: :delete, data: { confirm: "Are you sure?"} do %>
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                <% end %>
+              </span>
+            </div>
+
           </div>
         </div>
       <% end %>
