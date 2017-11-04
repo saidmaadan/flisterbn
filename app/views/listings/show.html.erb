@@ -105,7 +105,7 @@
   <!-- GOOGLE MAP -->
   <div class="row">
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src='https://maps.googleapis.com/maps/api/js?key='ENV.fetch('MAP_URL')></script>
     <script>
       function initialize() {
         var location = {lat: <%= @listing.latitude %>, lng: <%= @listing.longitude %>};
@@ -120,7 +120,7 @@
         });
 
         var infoWindow = new google.maps.InfoWindow({
-          content: '<div id="content"><%= image_tag @listing.backgroud_image(:medium) %></div>'
+          content: '<div id="content"><%= image_tag @listing.backgroud_image(:medium), width: "100%" %> <br><h4><%= @listing.address %></h4></div>'
         });
 
         infoWindow.open(map, marker);
@@ -136,23 +136,23 @@
   <hr/>
 
   <!-- NEAR BY ROOMS -->
-    <div class="row">
-      <h3>Near by</h3><br>
-      <% for listing in @listing.nearbys(10) %>
-          <div class="col-md-3 col-sm-6">
-            <div class="card">
-              <div class="card-header preview">
-                <%= image_tag listing.backgroud_image(:medium) %>
-              </div>
-              <div class="card-body">
-                <%= link_to listing.listing_name, listing %><br/>
-                (<%= listing.distance.round(2) %> miles away)
-              </div>
+  <div class="row">
+    <h3>Near by</h3><br>
+    <% for listing in @listing.nearbys(10) %>
+        <div class="col-md-3 col-sm-6">
+          <div class="card">
+            <div class="card-header preview">
+              <%= image_tag listing.backgroud_image(:medium) %>
+            </div>
+            <div class="card-body">
+              <%= link_to listing.listing_name, listing %><br/>
+              (<%= listing.distance.round(2) %> miles away)
             </div>
           </div>
-      <% end %>
-    </div>
+        </div>
+    <% end %>
+  </div>
 </div>
 
-
+<!-- ENV.fetch('MAP_KEY') -->
     <!-- Carousel -->

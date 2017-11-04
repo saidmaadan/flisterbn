@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: { case_sensitive: false }
 
   has_many :listings
+  has_many :reservations
 
    def full_name
      [first_name, last_name].join(" ")
