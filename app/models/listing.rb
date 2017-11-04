@@ -2,6 +2,9 @@ class Listing < ApplicationRecord
   belongs_to :user
   has_many :photos
 
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
+  
   extend FriendlyId
   friendly_id :slug_listings, use: :slugged
 
