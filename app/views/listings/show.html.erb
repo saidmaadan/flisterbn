@@ -1,6 +1,6 @@
 <!-- Image -->
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 show_image_container">
     <%= image_tag @listing.backgroud_image(nil), class: "show_image" %>
   </div>
 </div>
@@ -13,28 +13,28 @@
           <h1><%= @listing.listing_name %></h1>
           <%= @listing.address %>
         </div>
-        <div class="col-md-4 text-center">
-          <%= image_tag avatar_url(@listing.user), class: "img-circle avatar_medium" %><br/>
-          <%= @listing.user.full_name %>
+        <div class="col-md-4">
+          <%= image_tag avatar_url(@listing.user), class: "rounded-circle avatar_medium" %><br/>
+          Listed By: <%= @listing.user.full_name %>
         </div>
       </div>
       <hr/>
 
       <!-- Room Info -->
       <div class="row text-flister text-center row-space-1">
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-6">
           <i class="fa fa-home fa-2x"></i><br>
           <div><%= @listing.listing_type %></div>
         </div>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-6">
           <i class="fa fa-user-circle-o fa-2x"></i><br>
           <div><%= pluralize(@listing.accommodate, "Guest") %></div>
         </div>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-6">
           <i class="fa fa-bed fa-2x"></i><br>
           <div><%= pluralize(@listing.bedroom, "Bedroom") %></div>
         </div>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-6">
           <i class="fa fa-bath fa-2x"></i><br>
             <div><%= pluralize(@listing.bathroom, "Bathroom") %></div>
         </div>
@@ -104,7 +104,7 @@
       </div>
       <hr/>
 
-  <!-- GOOGLE MAP -->
+      <!-- GOOGLE MAP -->
       <div class="row">
         <div id="map"></div>
         <script src='https://maps.googleapis.com/maps/api/js?key='ENV.fetch('MAP_URL')></script>
@@ -158,12 +158,28 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+    </div>
+
     <!-- Reservation Form -->
-    <%= render 'reservations/form' %>
-  </div>
+    <div class="col-md-4">
+      <%= render 'reservations/form' %>
+    </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- ENV.fetch('MAP_KEY') -->
     <!-- Carousel -->

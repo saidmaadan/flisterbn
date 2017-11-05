@@ -2,7 +2,7 @@ class ReservationsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    listing = Listing.find(params[:listing_id])
+    listing = Listing.friendly.find(params[:listing_id])
 
     if current_user == listing.user
       flash[:alert] = "You cannot book your own property!"
@@ -20,10 +20,6 @@ class ReservationsController < ApplicationController
       flash[:notice] = "Booked Successfully!"
     end
     redirect_to listing
-  end
-
-  def your_trips
-    @trips = current_user.reservations.order(start_date: :asc)
   end
 
   def your_reservations

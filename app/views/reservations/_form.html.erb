@@ -1,9 +1,9 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
+<div class="card">
+  <div class="card-header">
     <span><i class="fa fa-bolt" style="color: #ffb400"></i> $<%= @listing.price %></span>
     <span class="pull-right">Per Night</span>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
     <%= form_for([@listing, @listing.reservations.new]) do |f| %>
       <div class="row">
         <div class="col-md-6">
@@ -16,4 +16,140 @@
         </div>
       </div>
 
-    
+      <h4 class="message-alert text-center"><span id="message"></span></h4>
+      <div id="preview" style="display: none">
+        <table class="reservation-table">
+          <tbody>
+            <tr>
+              <td>Price</td>
+              <td class="text-right">$<%= @listing.price %></td>
+            </tr>
+            <tr>
+              <td>Night(s)</td>
+              <td class="text-right">x <span id="reservation_nights"></span></td>
+            </tr>
+            <tr>
+              <td class="total">Total</td>
+              <td class="text-right">$<span id="reservation_total"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br/>
+
+      <%= f.submit "Book Now", id: "btn_book", class: "btn btn-normal btn-block", disabled: true %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+
+  function checkDate(date) {
+    dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    return [$.inArray(dmy, unavailableDates) == -1];
+  }
+
+  $(function() {
+
+    unavailableDates = [];
+
+    $.ajax({
+      url: '<%= preload_listing_path(@listing) %>',
+      dateTyp: 'json',
+      success: function(data) {
+
+        $.each(data, function(arrID, arrValue) {
+            for(var d = new Date(arrValue.start_date); d <= new Date(arrValue.end_date); d.setDate(d.getDate() + 1)) {
+              unavailableDates.push($.datepicker.formatDate('d-m-yy', d));
+            }
+        });
+
+        $('#reservation_start_date').datepicker({
+          dateFormat: 'dd-mm-yy',
+          minDate: 0,
+          maxDate: '3m',
+          beforeShowDay: checkDate,
+          onSelect: function(selected) {
+            $('#reservation_end_date').datepicker("option", "minDate", selected);
+            $('#reservation_end_date').attr("disabled", false);
+
+            var start_date = $('#reservation_start_date').datepicker('getDate');
+            var end_date = $('#reservation_end_date').datepicker('getDate');
+            var nights = (end_date - start_date)/1000/60/60/24 + 1;
+
+            var input = {
+              'start_date': start_date,
+              'end_date': end_date
+            }
+
+            $.ajax({
+              url: '<%= preview_listing_path(@listing) %>',
+              data: input,
+              success: function(data) {
+
+                if(data.conflict) {
+                  $('#message').text("These dates are not available.");
+                  $('#preview').hide();
+                  $('#btn_book').attr('disabled', true);
+                } else {
+                  $('#message').text("");
+                  $('#preview').show();
+                  $('#btn_book').attr('disabled', false);
+
+                  var total = nights * <%= @listing.price %>
+                  $('#reservation_nights').text(nights);
+                  $('#reservation_total').text(total);
+                }
+              }
+            });
+
+          }
+        });
+
+        $('#reservation_end_date').datepicker({
+          dateFormat: 'dd-mm-yy',
+          minDate: 0,
+          maxDate: '3m',
+          beforeShowDay: checkDate,
+          onSelect: function(selected) {
+            $('#reservation_start_date').datepicker("option", "maxDate", selected);
+
+            var start_date = $('#reservation_start_date').datepicker('getDate');
+            var end_date = $('#reservation_end_date').datepicker('getDate');
+            var nights = (end_date - start_date)/1000/60/60/24 + 1;
+
+            var input = {
+              'start_date': start_date,
+              'end_date': end_date
+            }
+
+            $.ajax({
+              url: '<%= preview_listing_path(@listing) %>',
+              data: input,
+              success: function(data) {
+
+                if(data.conflict) {
+                  $('#message').text("These dates are not available.");
+                  $('#preview').hide();
+                  $('#btn_book').attr('disabled', true);
+                } else {
+                  $('#message').text("");
+                  $('#preview').show();
+                  $('#btn_book').attr('disabled', false);
+
+                  var total = nights * <%= @listing.price %>
+                  $('#reservation_nights').text(nights);
+                  $('#reservation_total').text(total);
+                }
+              }
+            });
+          }
+        });
+      }
+    });
+
+
+
+  });
+</script>
