@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20171104224936) do
     t.bigint "user_id"
     t.bigint "listing_id"
     t.datetime "start_date"
-    t.datetime "end_time"
+    t.datetime "end_date"
     t.integer "price"
     t.integer "total"
     t.datetime "created_at", null: false
