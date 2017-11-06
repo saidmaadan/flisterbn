@@ -26,7 +26,7 @@ class ReservationsController < ApplicationController
     @trips = current_user.reservations.order(start_date: :asc)
   end
 
-  def your_reservations
+  def my_reservations
     @listings = current_user.listings
   end
 

@@ -48,9 +48,9 @@ a {
 }
 
 .show_image{
-  max-width: 100%;
-  height: auto;
-  
+  width: 100%;
+  height: 100%;
+
 }
 
 
@@ -109,6 +109,10 @@ a {
 .btn.btn-form {
   border: 1px solid #00A699;
   background-color: #00A699;
+}
+.btn.btn-form2{
+  border: 1px solid #ff5a5f;
+  background-color: #ff5a5f;  
 }
 
 .btn.btn-form:active {

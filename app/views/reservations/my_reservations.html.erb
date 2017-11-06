@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="sidebar-list">
+        <li class="sidebar-item"><%= link_to "Your Listings", listings_path, class: "sidebar-link" %></li>
+        <li class="sidebar-item"><%= link_to "Your Reservations", my_reservations_path, class: "sidebar-link active" %></li>
+        <li class="sidebar-item"><%= link_to "Your Trips", trips_path, class: "sidebar-link" %></li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header">
+          Your Reservations
+        </div>
+        <div class="card-body">
+
+          <% @listings.each do |listing| %>
+              <% listing.reservations.each do |reservation| %>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <%= reservation.start_date.strftime('%v') %>
+                    </div>
+                    <div class="col-md-2">
+                      <%= link_to listing_path(reservation.listing) do %>
+                          <%= image_tag reservation.listing.backgroud_image(:thumb) %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-5">
+                      <%= link_to reservation.listing.listing_name, listing_path(reservation.listing) %><br/><br/>
+                      <span>
+                        <%= link_to user_path(reservation.user) do %>
+                          <%= image_tag avatar_url(reservation.user), class: "rounded-circle avatar_small" %>
+                          <%= reservation.user.full_name %>
+                        <% end %>
+                      </span>
+                    </div>
+                  </div>
+                  <hr/>
+
+              <% end %>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light" style="background-color: #00A699">
   <a class="navbar-brand" href="#">Flister</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -18,16 +18,22 @@
     </ul>
     <span class="navbar-text">
       <ul class="navbar-nav mr-auto">
+        <li>
+          <%= link_to "List Your Property", new_listing_path, class: "btn btn-outline-success my-2 my-sm-0 btn btn-form2 btn-small", style: "color: white; text-decoration: none;" %>
+        </li>
+
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= image_tag avatar_url(current_user), class: 'rounded-circle avatar_small' %>&nbsp;
               <%= current_user.first_name %>
             </a>
+
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Manage Listing</a>
-              <a class="dropdown-item" href="#">List Your Property</a>
-              <a class="dropdown-item" href="#">Your Trips</a>
+              <%= link_to "Manage Listing", listings_path, class: "dropdown-item" %>
+              <%= link_to "List Your Property", new_listing_path, class: "dropdown-item" %>
+              <%= link_to "Your Reservations", my_reservations_path, class: "dropdown-item" %>
+              <%= link_to "Your Trips", trips_path, class: "dropdown-item" %>
               <%= link_to "Update Profile", edit_user_registration_path, class: "dropdown-item" %>
               <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>

@@ -23,4 +23,5 @@ Rails.application.routes.draw do
     resources :reservations, only: [:create]
   end
   get '/trips'=> 'reservations#trips'
+  get '/my_reservations'=> 'reservations#my_reservations'
 end
