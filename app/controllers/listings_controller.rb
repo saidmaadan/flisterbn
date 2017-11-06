@@ -75,7 +75,7 @@ class ListingsController < ApplicationController
 
 
   private
-    def date_conflict(start_date, end_date, room)
+    def date_conflict(start_date, end_date, listing)
       check = listing.reservations.where("? < start_date AND end_date < ?", start_date, end_date)
       check.size > 0? true : false
     end
@@ -93,9 +93,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-      params.require(:listing).permit(:listing_type, :apartment_type, :accommodate,
-                                      :bedroom, :bathroom, :listing_name, :summary,
-                                      :address, :tv, :kitchen, :air, :heating, :internet,
-                                      :price, :active)
+      params.require(:listing).permit(:listing_type, :apartment_type, :accommodate, :bedroom, :bathroom, :listing_name, :summary,:address, :tv, :kitchen, :air, :heating, :internet, :price, :active)
     end
 end
