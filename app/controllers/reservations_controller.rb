@@ -22,11 +22,19 @@ class ReservationsController < ApplicationController
     redirect_to listing
   end
 
+<<<<<<< HEAD
   def your_trips
     @trips = current_user.reservations.order(start_date: :asc)
   end
 
   def your_reservations
+=======
+  def trips
+    @trips = current_user.reservations.order(start_date: :asc)
+  end
+
+  def my_reservations
+>>>>>>> trips
     @listings = current_user.listings
   end
 
