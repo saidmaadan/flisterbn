@@ -1,0 +1,30 @@
+<div class="container">
+  <% if @host_reviews.count == 0 %>
+    <div class="text-center">
+      <h4>There are no reviews.</h4>
+    </div>
+  <% else%>
+    <% @host_reviews.order(id: :desc).each do |review| %>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <%= image_tag avatar_url(review.host), class: "rounded-circle avatar_medium"%><br>
+          <strong><%= review.host.full_name %></strong>
+        </div>
+        <div class="col-md-9">
+          <div><%= review.star %></div>
+          <% if current_user && current_user == review.host %>
+            <span class="pull-right">
+              <%= link_to review, method: :delete, data: {confirm: "Are you sure?"} do %>
+                <i class="fa fa-trash-o fa-lg"></i>
+              <% end %>
+            </span>
+          <% end %>
+          <div><%= review.created_at.strftime("%v")%></div>
+          <div><%= review.comment %></div>
+        </div>
+
+      </div>
+    <% end %>
+  <% end %>
+</div>

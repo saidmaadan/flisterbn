@@ -11,9 +11,21 @@ class User < ApplicationRecord
   #                 format: /\A\S+@\S+\z/,
   #                 uniqueness: { case_sensitive: false }
 
-  validates :first_name, presence: true, length:{maximum: 20}
-  # validates :last_name, presence: true,  length:{maximum: 20}
-  validates :username, presence: true, uniqueness: { case_sensitive: false }
+  extend FriendlyId
+  friendly_id :slug_users, use: :slugged
+
+   def slug_users
+     [
+       :username,
+       [:username, :user_name],
+       [:username, :user_name, :fullname]
+     ]
+   end
+
+
+  # validates :first_name, presence: true, length:{maximum: 20}
+  # # validates :last_name, presence: true,  length:{maximum: 20}
+  # validates :username, presence: true, uniqueness: { case_sensitive: false }
 
   has_many :listings
   has_many :reservations
@@ -22,6 +34,18 @@ class User < ApplicationRecord
 
    def full_name
      [first_name, last_name].join(" ")
+   end
+
+   def user_name
+       if username
+         return username
+     else
+       [full_name, @user_id].join('')
+     end
+   end
+
+   def fullname
+     [first_name, last_name].join("")
    end
 
    def self.from_omniauth(auth)
@@ -35,7 +59,7 @@ class User < ApplicationRecord
         user.password = Devise.friendly_token[0,20]
         user.first_name = auth.info.first_name
         user.last_name = auth.info.last_name
-        user.full_name = auth.info.name
+        # user.last_name = auth.info.name
         user.username = auth.extra.raw_info.username
         user.image = auth.info.image
         user.uid = auth.uid

@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     @listings = @user.listings
-    redirect_to root_path, notice: "You don't have permission to see this profile" unless current_user == @user
+
+    @guest_reviews = Review.where(type: "GuestReview", host_id: @user.id)
+
+    @host_reviews = Review.where(type: "HostReview", guest_id: @user.id)
+    #redirect_to root_path, notice: "You don't have permission to see this profile" unless current_user == @user
   end
 end
