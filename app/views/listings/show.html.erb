@@ -180,8 +180,13 @@
   </div>
 </div>
 
-
-
+<script>
+  $('#average_rating').raty({
+    path: '/assets',
+    readOnly: true,
+    score: <%= @listing.average_rating %>
+  });
+</script>
 
 
 
