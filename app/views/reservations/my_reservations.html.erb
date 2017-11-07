@@ -26,13 +26,16 @@
                       <% end %>
                     </div>
                     <div class="col-md-5">
-                      <%= link_to reservation.listing.listing_name, listing_path(reservation.listing) %><br/><br/>
+                      <%= link_to reservation.listing.listing_name, listing_path(reservation.listing) %><br/>
                       <span>
                         <%= link_to user_path(reservation.user) do %>
                           <%= image_tag avatar_url(reservation.user), class: "rounded-circle avatar_small" %>
                           <%= reservation.user.full_name %>
                         <% end %>
                       </span>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <%= render partial: "reviews/host_form", locals: {reservation: reservation}%>
                     </div>
                   </div>
                   <hr/>

@@ -24,14 +24,17 @@
                   <%= image_tag trip.listing.backgroud_image(:thumb) %>
                 <% end %>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-5">
                 <%= link_to trip.listing.listing_name, listing_path(trip.listing) %>
-                <span class="pull-right text-center">
-                  <%= image_tag avatar_url(trip.listing.user), class: "rounded-circle avatar_medium" %>
-                  <%= link_to user_path(trip.listing.user) do %><br>
+                <span><br>
+                  <%= image_tag avatar_url(trip.listing.user), class: "rounded-circle avatar_small" %>
+                  <%= link_to user_path(trip.listing.user) do %>
                     <%= trip.listing.user.full_name %>
                   <% end %>
                 </span>
+              </div>
+              <div class="col-md-3 text-right">
+                <%= render partial: "reviews/guest_form", locals: {reservation: trip}%>
               </div>
             </div>
             <hr/>
