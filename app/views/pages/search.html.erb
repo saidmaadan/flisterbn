@@ -53,6 +53,7 @@
           <div class="row">
             <div class="col-md-8">
               <label>Price range:</label>
+              <div id="slider-range"></div>
             </div>
             <div class="col-md-2">
               <label>Min Price:</label>
@@ -134,7 +135,7 @@
       </div>
       <br>
       <div class="row" id="listing_list">
-        <%= render partial: "listings/listing_list", locals: { listings: @arrListings }%>
+        <%= render partial: "listings/listings_list", locals: { listings: @arrListings }%>
       </div>
     </div>
   </div>
@@ -170,4 +171,26 @@
     }
     open = !open;
   });
+</script>
+
+<script>
+  $(function() {
+    $("#q_price_gteq").val('500');
+    $("#q_price_lteq").val('3000');
+
+    $("#slider-range").slider({
+      range: true,
+      min: 0,
+      max: 5000,
+      values: [500, 3000],
+      slide: function(event, ui) {
+        $("#q_price_gteq").val(ui.values[0]);
+        $("#q_price_lteq").val(ui.values[1]);
+      }
+    });
+
+    $(".ui-widget-header").css('background', '#00A699');
+    $(".ui-state-default, .ui-widget-content").css('background', 'white');
+    $(".ui-state-default, .ui-widget-content").css('border-color', '#00A699');
+  })
 </script>
