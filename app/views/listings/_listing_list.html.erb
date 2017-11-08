@@ -1,0 +1,12 @@
+<% listings.each do |listing| %>
+  <div class="col-md-4 col-sm-6">
+    <div class="card">
+      <div class="card-header preview">
+        <%= image_tag listing.backgroud_image(:medium)%>
+      </div>
+      <div class="card-body">
+        <%= link_to listing.listing_name, listing %>
+      </div>
+    </div>
+  </div>
+<% end %>
