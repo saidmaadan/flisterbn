@@ -12,8 +12,11 @@
 
   <body>
     <%= render 'shared/nav' %>
-    <%= render 'shared/message' %>
+    <div class="main">
+      <%= render 'shared/message' %>
 
-    <%= yield %>
+      <%= yield %>
+    </div>
+
   </body>
 </html>
