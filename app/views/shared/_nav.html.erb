@@ -12,15 +12,18 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Features</a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="#">Listing</a>
+        <%= form_tag search_path, class: "form-inline", method: :get do %>
+          <div class="form-group">
+            <%= text_field_tag :search, params[:search], placeholder: "Enter your address and press enter", class: "form-control mr-sm-2" %>
+          </div>
+        <% end %>
       </li>
     </ul>
+
     <span class="navbar-text">
       <ul class="navbar-nav mr-auto">
-        <li>
-          <%= link_to "List Your Property", new_listing_path, class: "btn btn-outline-success my-2 my-sm-0 btn btn-form2 btn-small", style: "color: white; text-decoration: none;" %>
-        </li>
 
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
@@ -38,9 +41,7 @@
               <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
-          <li class="nav-item">
-            <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-link" %>
-          </li>
+
           <% else %>
             <li class="nav-item">
               <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
@@ -49,6 +50,10 @@
               <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
             </li>
         <% end %>
+        <li>
+          <%= link_to "List Your Property", new_listing_path, class: "btn btn-outline-success my-2 my-sm-0 btn btn-form2 btn-small", style: "color: white; text-decoration: none;" %>
+        </li>
+
       </ul>
     </span>
   </div>

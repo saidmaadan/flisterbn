@@ -14,7 +14,7 @@ body {
 }
 
 .main{
-  margin-top: 20px;
+
 }
 
 a {
@@ -361,24 +361,26 @@ form-group .input-text {
 }
 
 // SEARCH
-#main {
-  height: 100%;
-  overflow: hidden;
-}
-
-#left {
-  padding: 10px 400px 10px 20px;
-  overflow: scroll;
-  height: 100%;
-}
-
-#right {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 450px;
-  height: 100%;
-}
+// #search_page {
+//   height: 100%;
+//   overflow: hidden;
+// }
+//
+// #right_search_page {
+//   padding: 10px 400px 10px 20px;
+//   overflow: scroll;
+//   height: 100%;
+//   width: 90%;
+//   margin: auto;
+// }
+//
+// #left_search_page {
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   width: 50%;
+//   height: 100%;
+// }
 
 .map_price {
   text-align: center;
