@@ -76,13 +76,13 @@
           <hr>
           <div class="row">
             <div class="col-md-4">
-              <%= check_box_tag "q[listing_type_eq-any][]", "Entire"%> Entire Apartment
+              <%= check_box_tag "q[apartment_type_eq_any][]", "Entire"%> Entire Apartment
             </div>
             <div class="col-md-4">
-              <%= check_box_tag "q[listing_type_eq-any][]", "Private"%> Private Apartment
+              <%= check_box_tag "q[apartment_type_eq_any][]", "Private"%> Private Apartment
             </div>
             <div class="col-md-4">
-              <%= check_box_tag "q[listing_type_eq-any][]", "Shared"%> Shared Apartment
+              <%= check_box_tag "q[apartment_type_eq_any][]", "Shared"%> Shared Apartment
             </div>
           </div>
           <hr>
@@ -90,22 +90,20 @@
             <div class="col-md-4">
               <div class="form-group select">
                 <label>Accommodate</label>
-                <%= f.select :accommodate_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]],
-                              id: "accommodate", prompt: "Select...", class: "form-control" %>
+                <%= f.select :accommodate_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "accommodate", prompt: "Select...", class: "form-control" %>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group select">
                 <label>Bedrooms</label>
-                <%= f.select :bedroom_gteq, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7+", 7]],
-                              id: "accommodate", prompt: "Select...", class: "form-control" %>
+                <%= f.select :accommodate_gteq, [["1", 1], ["2", 2], ["3", 3], ["+", 4], ["5", 4], ["6+", 6]], id: "bedroom", prompt: "Select...", class: "form-control" %>
               </div>
             </div>
+
             <div class="col-md-4">
               <div class="form-group select">
                 <label>Bathrooms</label>
-                <%= f.select :bathroom_gteq, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7+", 7]],
-                              id: "bathroom", prompt: "Select...", class: "form-control" %>
+                <%= f.select :bathroom_gteq, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6+", 6]], id: "bathroom", prompt: "Select...", class: "form-control" %>
               </div>
             </div>
           </div>
@@ -127,14 +125,14 @@
               <%= check_box_tag "q[air_eq]", true %> Air Condition
             </div>
           </div>
-          <hr>
+          <hr/>
           <div class="row text-center">
             <%= f.submit "Search", class: "btn btn-form" %>
           </div>
         <% end %>
       </div>
       <br>
-      <div class="row" id="listing_list">
+      <div class="row" id="listings_list">
         <%= render partial: "listings/listings_list", locals: { listings: @arrListings }%>
       </div>
     </div>
@@ -163,10 +161,11 @@
   });
 
   var open = true;
-  $('#filter').click(function(){
-    if(open){
+
+  $('#filter').click(function() {
+    if (open) {
       $('#filter').html("More filters <i class='fa fa-chevron-up'></i>")
-    }else{
+    } else {
       $('#filter').html("More filters <i class='fa fa-chevron-down'></i>")
     }
     open = !open;

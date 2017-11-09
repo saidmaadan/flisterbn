@@ -1,12 +1,22 @@
 <% listings.each do |listing| %>
-  <div class="col-md-4 col-sm-6">
+  <div class="col-md-3 col-sm-6">
     <div class="card">
       <div class="card-header preview">
         <%= image_tag listing.backgroud_image(:medium)%>
       </div>
       <div class="card-body">
         <%= link_to listing.listing_name, listing %>
+        $<%= listing.price %> - <%= listing.listing_type %> - <%= pluralize(listing.bedroom, "Bedroom") %>
+        <div id="star_<%= listing.id%>"></div><%= pluralize(listing.average_rating, "Review")%>
       </div>
     </div>
   </div>
+
+  <script>
+    $('#star_<%= listing.id %>').raty({
+      path: '/assets',
+      readOnly: true,
+      score: <%= listing.average_rating %>
+    });
+  </script>
 <% end %>
