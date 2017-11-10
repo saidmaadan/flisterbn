@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 col-sm-5">
+      <div class="center">
+        <%= image_tag avatar_url(current_user), class: 'avatar_full' %>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <%= current_user.full_name %>
+        </div>
+        <div class="card-body">
+          <ul class="sidebar-list">
+            <% if current_user.confirmation_token%>
+              <li>Email Address <span class="pull-right icon-flister"><i class="fa fa-check-circle-o"></i></span></li>
+            <% end %>
+            <% if current_user.provider %>
+              <li>Facebook <span class="pull-right icon-flister"><i class="fa fa-check-circle-o"></i></span></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 col-sm-7">
+      <div class="card">
+        <div class="card-header">
+          Notification
+        </div>
+        <div class="card-body">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          Your Listings (<%= @listings.length %>)
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <%= render partial: "listings/listings_list", locals: {listings: @listings} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

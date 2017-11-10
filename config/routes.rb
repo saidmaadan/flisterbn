@@ -29,4 +29,6 @@ Rails.application.routes.draw do
   get '/my_reservations'=> 'reservations#my_reservations'
 
   get 'search' => 'pages#search'
+
+  get 'dashboard' => 'dashboards#index'
 end
