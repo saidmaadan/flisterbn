@@ -37,10 +37,7 @@
 
                 <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
               </div>
-              <div class="form-group">
 
-                <%= f.text_field :phone, class: "form-control", placeholder: "Phone Number" %>
-              </div>
               <div class="form-group">
 
                 <%= f.text_field :website, class: "form-control", placeholder: "Business Website" %>
@@ -79,6 +76,31 @@
           </div>
         </div>
       </div>
+      <br>
+
+      <br/>
+
+    <div class="card">
+      <div class="card-header">Your Phone Number</div>
+      <div class="card-body">
+        <div class="container">
+          <% if !current_user.phone.blank? %>
+              <h4><%= current_user.phone %></h4>
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#update-phone">Update Phone Number</button>
+              <% if current_user.phone_verified == false %>
+                  <button class="btn btn-secondary" data-toggle="modal" data-target="#verify-phone">Verify</button>
+              <% end %>
+          <% else %>
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#update-phone">Add Phone Number</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
+
+<!-- MODAL FOR PHONE NUMBER -->
+<%= render 'phone_number' %>
+<!-- MODAL FOR VERIFICATION -->
+<%= render 'phone_verification' %>

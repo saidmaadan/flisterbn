@@ -1,0 +1,25 @@
+<!-- <button type="button" class="btn btn-normal" data-toggle="modal" data-target="#verify-phone" data-whatever="@getbootstrap">Verification Code</button> -->
+
+<div class="modal fade" id="verify-phone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Verification Code</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_for current_user, url: verify_phone_number_user_path(current_user), method: :post do |f| %>
+            <div class="form-group">
+              <%= f.text_field :pin, class: "form-control", placeholder: "Your PIN", value: "" %>
+            </div>
+            <div class="text-center">
+              <%= f.submit "Verify", class: "btn btn-normal" %>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
