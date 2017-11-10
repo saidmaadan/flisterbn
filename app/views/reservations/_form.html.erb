@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <span><i class="fa fa-bolt" style="color: #ffb400"></i> $<%= @listing.price %></span>
+    <span><% if @listing.Instant? %><i class="fa fa-bolt" style="color: #ffb400"></i><% end %> $<%= @listing.price %></span>
     <span class="pull-right">Per Night</span>
   </div>
   <div class="card-body">
@@ -37,8 +37,11 @@
       </div>
 
       <br/>
-
-      <%= f.submit "Book Now", id: "btn_book", class: "btn btn-normal btn-block", disabled: true %>
+      <% if @listing.Instant? %>
+        <%= f.submit "Book Now", id: "btn_book", class: "btn btn-normal btn-block", disabled: true %>
+      <% else %>
+        <%= f.submit "Request Now", id: "btn_book", class: "btn btn-normal btn-block", disabled: true %>
+      <% end %>
     <% end %>
   </div>
 </div>

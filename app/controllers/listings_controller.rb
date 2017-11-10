@@ -58,7 +58,7 @@ class ListingsController < ApplicationController
 
   def preload
     today = Date.today
-    reservations = @listing.reservations.where("start_date >= ? OR end_date >= ?", today, today)
+    reservations = @listing.reservations.where("(start_date >= ? OR end_date >= ?) AND status = ?", today, today, 1)
 
     render json: reservations
   end
@@ -77,7 +77,7 @@ class ListingsController < ApplicationController
 
   private
     def date_conflict(start_date, end_date, listing)
-      check = listing.reservations.where("? < start_date AND end_date < ?", start_date, end_date)
+      check = listing.reservations.where("(? < start_date AND end_date < ?) AND status = ?", start_date, end_date, 1)
       check.size > 0? true : false
     end
 
@@ -94,6 +94,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-      params.require(:listing).permit(:listing_type, :apartment_type, :accommodate, :bedroom, :bathroom, :listing_name, :summary,:address, :tv, :kitchen, :air, :heating, :internet, :price, :active)
+      params.require(:listing).permit(:listing_type, :apartment_type, :accommodate, :bedroom, :bathroom, :listing_name, :summary,:address, :tv, :kitchen, :air, :heating, :internet, :price, :active, :instant)
     end
 end

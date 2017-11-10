@@ -15,6 +15,14 @@
                 <%= f.text_field :listing_name, placeholder: "Give your Listing a title", class: "form-control", required: true %>
               </div>
             </div>
+
+            <div class="col-md-4 col-sm-6 select">
+              <div class="form-group">
+                <label>Booking Type</label>
+                <%= f.select :instant, Listing.instants.map { |key, value| [key.humanize, key]}, selected: 'Instant', prompt: "Select...", class: "form-control" %>
+              </div>
+            </div>
+
             <div class="col-md-4 col-sm-6 select">
               <div class="form-group">
                 <label>Listing Type</label>
