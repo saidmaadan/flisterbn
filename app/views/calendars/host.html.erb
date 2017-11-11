@@ -1,0 +1,76 @@
+<div class="container-flow">
+    <% if !@listings.blank? %>
+      <%= search_form_for @search, class: 'form-group', remote: true, url: host_calendar_path do |f| %>
+        <div class="row">
+          <div class="col-md-7 col-sm-10 select">
+            <div class="form-group input-text">
+              <label>Your Listings</label>
+              <%= f.select :listing_id, options_for_select(@listings.collect {|u| [u.listing_name, u.id]}, params[:listing_id]), {}, {
+                onchange: "$(this.form).submit()",
+                class: "form-control input-text", style: "height: 45px;"
+              } %>
+            </div>
+          </div>
+          <%= f.hidden_field :start_date, id: "start-date", value: params[:start_date], onchange: "$(this.form).submit()" %>
+        </div>
+      <% end %>
+    <% end %>
+
+  <div id="calendar"></div>
+</div>
+<script>
+  window.reservations = <%= raw @events.to_json %>
+  console.log(reservations);
+
+  function showReservations(data) {
+    return data.map(function (e) {
+      if (e['start_date'] !== e['end_date']) {
+        e['end_date'] = moment.utc(e['end_date']).add(1, 'days')
+      }
+
+      return {
+        fname: e.first_name,
+        lname: e.last_name,
+        start: e['start_date'],
+        end: e['end_date'],
+        avatar: e.image,
+        status: e.status
+      }
+    })
+  }
+
+
+  $('#calendar').fullCalendar({
+    header: {
+      left: 'title',
+      center: '',
+      right: 'prev,next'
+    },
+    defaultDate: $('#start-date').val(),
+    events: showReservations(reservations),
+    eventRender: function(event, element, view) {
+      return $(`
+        <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end">
+          <div class="fc-content ${event.status}">
+            <span class="fc-title"><img class="rounded-circle avatar_small" src="${event.avatar}"> ${event.fname} ${event.lname}</span>
+          </div>
+        </a>
+      `);
+    },
+  });
+
+  $('.fc-prev-button').click(function() {
+    var current = new Date($('#start-date').val());
+    var prev = new Date(current.getFullYear(), current.getMonth() - 1, 1)
+    $('#start-date').val(moment(prev).format('YYYY-MM-DD'))
+    $('#start-date').trigger('change')
+  });
+
+  $('.fc-next-button').click(function() {
+    var current = new Date($('#start-date').val());
+    var next = new Date(current.getFullYear(), current.getMonth() + 1, 1)
+    $('#start-date').val(moment(next).format('YYYY-MM-DD'))
+    $('#start-date').trigger('change')
+  });
+
+</script>

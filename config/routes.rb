@@ -43,4 +43,6 @@ Rails.application.routes.draw do
       post '/decline' => "reservations#decline"
     end
   end
+
+  get '/host_calendar' => "calendars#host"
 end

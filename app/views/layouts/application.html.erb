@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <script type="text/javascript" src=ENV.fetch('MAP_URL_GEOLOCATION')></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZJGFMxkkSpR8KuuyoIGa57jOCfphYSK8&libraries=places"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
     <link href="http://code.jquery.com/ui/1.11.4/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
@@ -21,3 +21,5 @@
 
   </body>
 </html>
+
+<!-- ENV.fetch('MAP_URL_GEOLOCATION') -->
