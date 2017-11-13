@@ -262,6 +262,15 @@ form-group .input-text {
   border: 1px solid #00A699;
 }
 
+.form-group input[type="radio"] {
+  height: 15px;
+  margin-right: 10px;
+}
+
+.btn-group label {
+  margin-right: 15px;
+}
+
 // SIDEBAR
 .sidebar-profile {
   padding-left: 0;

@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110173041) do
+ActiveRecord::Schema.define(version: 20171112012939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "calendars", force: :cascade do |t|
+    t.date "day"
+    t.integer "price"
+    t.integer "status"
+    t.bigint "listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_calendars_on_listing_id"
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -131,6 +141,7 @@ ActiveRecord::Schema.define(version: 20171110173041) do
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
+  add_foreign_key "calendars", "listings"
   add_foreign_key "listings", "users"
   add_foreign_key "photos", "listings"
   add_foreign_key "reservations", "listings"
