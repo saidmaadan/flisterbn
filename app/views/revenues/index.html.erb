@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">This Week's Revenue</div>
+        <div class="card-body">
+          <div class="container text-center">
+            <% if @reservations.blank? %>
+                <h3>You don't have any reservations</h3><br/>
+                <%= link_to "List your space to earn income", new_listing_path, class: "btn btn-normal" %>
+            <% else %>
+                <%= column_chart @this_week_revenue, colors: ["#00A699"] %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
