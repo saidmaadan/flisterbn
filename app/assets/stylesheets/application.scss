@@ -511,10 +511,10 @@ form-group .input-text {
 #add-card button {
   float: left;
   display: block;
-  background-image: linear-gradient(-180deg, #F8B563 0%, #F99A52 100%);
+  background-image: linear-gradient(-180deg, #ff5a5f 0%, #ff5a5f 100%);
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.10), inset 0 -1px 0 0 #E57C45;
   color: white;
-  border-radius: 24px;
+  border-radius: 1px;
   border: 0;
   margin-top: 20px;
   font-size: 17px;
@@ -526,11 +526,11 @@ form-group .input-text {
 }
 
 #add-card button:focus {
-  background: #EF8C41;
+  background: #ff5a5f;
 }
 
 #add-card button:active {
-  background: #E17422;
+  background: #ff5a5f;
 }
 
 .outcome {

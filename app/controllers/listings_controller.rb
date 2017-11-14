@@ -12,6 +12,10 @@ class ListingsController < ApplicationController
   end
 
   def create
+    if !current_user.active_host
+      return redirect_to payout_method_path, alert: "Please Connect to Stripe Express..."
+    end
+
     @listing = current_user.listings.build(listing_params)
     if @listing.save
       redirect_to listing_listing_path(@listing), notice: "Saved..."

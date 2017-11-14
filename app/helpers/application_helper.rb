@@ -8,4 +8,8 @@ module ApplicationHelper
       "https://www.gravatar.com/avatar/#{gravatar_id}.jpg?d-identical&s=150"
     end
   end
+
+  def stripe_express_path
+    ENV.fetch('STRIPE_EXPRESS_PATH')
+  end
 end

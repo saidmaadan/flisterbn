@@ -61,7 +61,11 @@ class ReservationsController < ApplicationController
           :customer => customer.id,
           :amount => reservation.total * 100,
           :description => listing.listing_name,
-          :currency => "usd"
+          :currency => "usd",
+          :destination => {
+            :amount => reservation.total * 90, #90% of the total amount goes to the Host
+            :account => listing.user.merchant_id #Host's Stripe customer ID
+          }
         )
 
         if charge
@@ -72,7 +76,7 @@ class ReservationsController < ApplicationController
           flash[:alert] = "Cannot charge with this payment method"
         end
       end
-    rescue Stripe.CardError => e
+    rescue Stripe::CardError => e
       reservation.declined!
       flash[:alert] = e.message
     end

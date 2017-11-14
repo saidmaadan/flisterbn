@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+  <div class="col-md-3">
+    <ul class="sidebar-list">
+      <li class="sidebar-item"><%= link_to "Payment Method", payment_method_path, class: "sidebar-link" %></li>
+      <li class="sidebar-item"><%= link_to "Payout Method", payout_method_path, class: "sidebar-link active" %></li>
+      <li class="sidebar-item"><%= link_to "Notification Settings", payout_method_path, class: "sidebar-link" %></li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header">Payout Method</div>
+      <div class="card-body">
+        <div class="container text-center">
+          <% if current_user.merchant_id.blank? %>
+              <%= link_to image_tag('stripe_button.png'), stripe_express_path %>
+          <% else %>
+              <br/>
+              <div class="text-center">
+                <%= link_to "Express Dashboard", @login_link.url, class: "btn btn-normal" %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
