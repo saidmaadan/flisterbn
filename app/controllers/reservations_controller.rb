@@ -88,8 +88,8 @@ class ReservationsController < ApplicationController
 
         if charge
           reservation.Approved!
-          ReservationMailer.send_email_to_guest(reservation.user, listing).deliver_later
-          send_sms(listing, reservation)
+          ReservationMailer.send_email_to_guest(reservation.user, listing).deliver_later if reservation.user.setting.enable_email
+          send_sms(listing, reservation) if listing.user.setting.enable_sms
           flash[:notice] = "Reservation created successfully!"
         else
           reservation.declined!

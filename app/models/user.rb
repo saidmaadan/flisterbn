@@ -31,6 +31,13 @@ class User < ApplicationRecord
   has_many :guest_reviews, class_name: "GuestReview", foreign_key: "guest_id"
   has_many :host_reviews, class_name: "HostReview", foreign_key: "host_id"
 
+  has_one :setting
+  after_create :add_setting
+
+  def add_setting
+    Setting.create(user: self, enable_sms: true, enable_email: true)
+  end
+
    def full_name
      [first_name, last_name].join(" ")
    end
