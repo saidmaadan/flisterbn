@@ -15,10 +15,19 @@ class ReservationsController < ApplicationController
       end_date = Date.parse(reservation_params[:end_date])
       days = (end_date - start_date).to_i + 1
 
+      special_dates = listing.calendars.where(
+        "status = ? AND day BETWEEN ? AND ? AND price <> ?",
+        0, start_date, end_date, listing.price
+      )
       @reservation = current_user.reservations.build(reservation_params)
       @reservation.listing = listing
       @reservation.price = listing.price
-      @reservation.total = listing.price * days
+      # @reservation.total = listing.price * days
+
+      @reservation.total = listing.price * (days - special_dates.count)
+      special_dates.each do |date|
+          @reservation.total += date.price
+      end
 
       if @reservation.Waiting!
         if listing.Request?
@@ -54,6 +63,15 @@ class ReservationsController < ApplicationController
 
   private
 
+    def send_sms(listing, reservation)
+      @client = Twilio::REST::Client.new
+      @client.messages.create(
+        from: '+1512-640-0359 ',
+        to: listing.user.phone,
+        body: "#{reservation.user.fullname} booked your '#{listing.listing_name}'"
+      )
+    end
+
     def charge(listing, reservation)
       if !reservation.user.stripe_id.blank?
         customer = Stripe::Customer.retrieve(reservation.user.stripe_id)
@@ -61,15 +79,17 @@ class ReservationsController < ApplicationController
           :customer => customer.id,
           :amount => reservation.total * 100,
           :description => listing.listing_name,
-          :currency => "usd",
-          :destination => {
-            :amount => reservation.total * 90, #90% of the total amount goes to the Host
-            :account => listing.user.merchant_id #Host's Stripe customer ID
-          }
+          :currency => "usd"
+          # :destination => {
+          #   :amount => reservation.total * 90, #90% of the total amount goes to the Host
+          #   :account => listing.user.merchant_id #Host's Stripe customer ID
+          # }
         )
 
         if charge
           reservation.Approved!
+          ReservationMailer.send_email_to_guest(reservation.user, listing).deliver_later
+          send_sms(listing, reservation)
           flash[:notice] = "Reservation created successfully!"
         else
           reservation.declined!
