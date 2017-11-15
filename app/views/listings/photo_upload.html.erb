@@ -11,17 +11,18 @@
         <div class="card-body">
           <div class="container">
             <div class="row">
-              <div class="col-md-6 offset-md-3">
+              <div class="col-sm-6 offset-sm-3">
                 <!-- Photo Upload -->
                 <%= form_for @listing, url: listing_photos_path(@listing), method: 'post', html: {multipart: true} do |f| %>
-                  <div class="row">
+                  <div class="row upload-btn">
                     <div class="form-group">
-                      <span class="btn btn-secondary btn-file text-babu">
+                      <span class="btn btn-secondary btn-file text-flister">
                         <i class="fa fa-cloud-upload" aria-hidden="true"></i> Select Photos
 
                         <%= file_field_tag "images[]", type: :file, multiple: true %>
                       </span>
-                    </div>
+                    </div>&nbsp;
+
                     <div class="text-center">
                       <%= f.submit "Add Images", class: "btn btn-form" %>
                     </div>

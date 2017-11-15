@@ -98,6 +98,10 @@ a {
 .btn:hover, .btn:focus {
   color: #fff;
 }
+.upload-btn {
+  width: 100%;
+  margin: 0 auto;
+}
 
 .btn.btn-secondary {
   width: 100%;
@@ -105,8 +109,8 @@ a {
   background: white;
   color: #484848;
   border-radius: 2px;
-  padding: 10px 0;
-  margin-top: 10px;
+  padding: 10px 15px;
+  // margin-top: 10px;
 }
 
 .btn.btn-normal {
