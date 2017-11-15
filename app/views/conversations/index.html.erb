@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">Your Conversations</div>
+        <div class="card-body">
+          <div class="container">
+
+            <% @conversations.each do |conversation| %>
+                <% other = current_user == conversation.sender ? conversation.recipent : conversation.sender %>
+                <%= link_to conversation_messages_path(conversation) do %>
+
+                    <div class="row conversation">
+                      <% if conversation.messages.any? %>
+                          <div class="col-md-2">
+                            <%= image_tag avatar_url(other), class: "rounded-circle avatar_medium" %>
+                          </div>
+                          <div class="col-md-2">
+                            <%= other.full_name %>
+                            <%= conversation.messages.last.message_time %>
+                          </div>
+                          <div class="col-md-8">
+                            <%= conversation.messages.last.context %>
+                          </div>
+                      <% end %>
+                    </div>
+
+                <% end %>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

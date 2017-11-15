@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 text-center">
+      <%= image_tag avatar_url(@other), class: "rounded-circle avatar_medium" %>
+      <strong><%= @other.full_name %></strong>
+      <%= link_to "View Profile", @other, class: "btn btn-secondary" %>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header">
+          Conversation with <%= @other.full_name %>
+          <input id="conversation_id" type="hidden" value="<%= @conversation.id %>">
+        </div>
+        <div class="card-body">
+          <div class="container text-center">
+            <%= form_for [@conversation, @conversation.messages.new], remote: true do |f| %>
+                <div class="form-group">
+                  <%= f.text_field :context, placeholder: "Add a personal message", class: "form-control" %>
+                </div>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <div>
+                  <%= f.submit "Send Message", class: "btn btn-normal" %>
+                </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div id="chat">
+        <%= render @messages %>
+      </div>
+
+    </div>
+  </div>
+
+</div>

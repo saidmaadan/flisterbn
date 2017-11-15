@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-body">
+    <%= image_tag avatar_url(message.user), class: "img-circle avatar_medium" %>
+    <strong><%= message.user.full_name %></strong>
+    <span class="pull-right"><%= message.message_time %></span>
+    <br/>
+    <div class="row-space-2">
+      <%= message.context %>
+    </div>
+  </div>
+</div>

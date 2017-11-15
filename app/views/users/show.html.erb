@@ -3,6 +3,9 @@
     <div class="col-md-3">
       <div class="center">
           <%= image_tag avatar_url(@user), class: "avatar_full" %>
+          <% if current_user && current_user != @user %>
+            <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipent_id: @user.id), method: :post, class: "btn btn-secondary" %>
+          <% end %>
       </div>
       <div class="card">
         <div class="card-header">Verification</div>

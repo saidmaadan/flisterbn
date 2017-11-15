@@ -46,6 +46,9 @@ Rails.application.routes.draw do
   end
 
   resources :revenues, only: [:index]
+  resources :conversations, only: [:index, :create] do
+    resources :messages, only: [:index, :create]
+  end
 
   get '/host_calendar' => "calendars#host"
   get '/payment_method' => 'users#payment'
