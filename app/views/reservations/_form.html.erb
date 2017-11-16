@@ -28,6 +28,12 @@
               <td>Night(s)</td>
               <td class="text-right">x <span id="reservation_nights"></span></td>
             </tr>
+            <tr id="special_details">
+              <td colspan="2" class="total">
+                Specials Price<br/>
+                <ul id="special_list"></ul>
+              </td>
+            </tr>
             <tr>
               <td class="total">Total</td>
               <td class="text-right">$<span id="reservation_total"></span></td>
@@ -57,15 +63,81 @@
 
     unavailableDates = [];
 
+    specialDates = [];
+
+    function specialCheck(){
+      var start_date = $('#reservation_start_date').datepicker('getDate');
+      var end_date = $('#reservation_end_date').datepicker('getDate');
+      var nights = (end_date - start_date)/1000/60/60/24 + 1;
+
+      var input = {
+        'start_date': start_date,
+        'end_date': end_date
+      }
+
+      $.ajax({
+        url: '<%= preview_listing_path(@listing) %>',
+        data: input,
+        success: function(data) {
+
+          if(data.conflict) {
+            $('#message').text("These dates are not available.");
+            $('#preview').hide();
+            $('#btn_book').attr('disabled', true);
+          } else {
+            $('#message').text("");
+            $('#preview').show();
+            $('#btn_book').attr('disabled', false);
+
+            // # New Price Calculation
+            var selectedDates = [];
+
+            // Step 1: Create an array of selected dates
+            while (start_date <= end_date) {
+                selectedDates.push($.datepicker.formatDate('d-m-yy', new Date(start_date)));
+                start_date.setDate(start_date.getDate() + 1);
+            };
+
+            // Step 2: Create an array of special dates
+            var selectedSpecialDate = specialDates.filter(function(sDate){
+                var d = $.datepicker.formatDate('d-m-yy',new Date(sDate.day));
+                return selectedDates.indexOf(d) !== -1;
+            });
+
+              // Calculate the total amout
+            var total = (nights - selectedSpecialDate.length) * <%= @listing.price %>;
+            if (selectedSpecialDate.length > 0) {
+              $('#special_details').show();
+
+              selectedSpecialDate.map(function (date) {
+                  total += date.price
+                  $('#special_list').append('<li class="text-right">('+ date.day + '): $' + date.price +'</li>')
+              });
+            } else {
+              $('#special_details').hide();
+            }
+
+            $('#reservation_nights').text(nights);
+            $('#reservation_total').text(total);
+          }
+        }
+      });
+
+    }
+
     $.ajax({
       url: '<%= preload_listing_path(@listing) %>',
       dateTyp: 'json',
       success: function(data) {
-
-        $.each(data, function(arrID, arrValue) {
+        specialDates = data.special_dates
+        $.each(data.reservations, function(arrID, arrValue) {
             for(var d = new Date(arrValue.start_date); d <= new Date(arrValue.end_date); d.setDate(d.getDate() + 1)) {
               unavailableDates.push($.datepicker.formatDate('d-m-yy', d));
             }
+        });
+
+        $.each(data.unavailable_dates, function(arrID, arrValue) {
+          unavailableDates.push($.datepicker.formatDate('d-m-yy', new Date(arrValue.day)));
         });
 
         $('#reservation_start_date').datepicker({
@@ -76,37 +148,7 @@
           onSelect: function(selected) {
             $('#reservation_end_date').datepicker("option", "minDate", selected);
             $('#reservation_end_date').attr("disabled", false);
-
-            var start_date = $('#reservation_start_date').datepicker('getDate');
-            var end_date = $('#reservation_end_date').datepicker('getDate');
-            var nights = (end_date - start_date)/1000/60/60/24 + 1;
-
-            var input = {
-              'start_date': start_date,
-              'end_date': end_date
-            }
-
-            $.ajax({
-              url: '<%= preview_listing_path(@listing) %>',
-              data: input,
-              success: function(data) {
-
-                if(data.conflict) {
-                  $('#message').text("These dates are not available.");
-                  $('#preview').hide();
-                  $('#btn_book').attr('disabled', true);
-                } else {
-                  $('#message').text("");
-                  $('#preview').show();
-                  $('#btn_book').attr('disabled', false);
-
-                  var total = nights * <%= @listing.price %>
-                  $('#reservation_nights').text(nights);
-                  $('#reservation_total').text(total);
-                }
-              }
-            });
-
+            specialCheck();
           }
         });
 
@@ -117,36 +159,7 @@
           beforeShowDay: checkDate,
           onSelect: function(selected) {
             $('#reservation_start_date').datepicker("option", "maxDate", selected);
-
-            var start_date = $('#reservation_start_date').datepicker('getDate');
-            var end_date = $('#reservation_end_date').datepicker('getDate');
-            var nights = (end_date - start_date)/1000/60/60/24 + 1;
-
-            var input = {
-              'start_date': start_date,
-              'end_date': end_date
-            }
-
-            $.ajax({
-              url: '<%= preview_listing_path(@listing) %>',
-              data: input,
-              success: function(data) {
-
-                if(data.conflict) {
-                  $('#message').text("These dates are not available.");
-                  $('#preview').hide();
-                  $('#btn_book').attr('disabled', true);
-                } else {
-                  $('#message').text("");
-                  $('#preview').show();
-                  $('#btn_book').attr('disabled', false);
-
-                  var total = nights * <%= @listing.price %>
-                  $('#reservation_nights').text(nights);
-                  $('#reservation_total').text(total);
-                }
-              }
-            });
+            specialCheck()
           }
         });
       }
