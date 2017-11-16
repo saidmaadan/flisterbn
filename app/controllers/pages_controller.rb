@@ -41,7 +41,12 @@ class PagesController < ApplicationController
           1
         ).limit(1)
 
-        if not_available.length > 0
+        not_available_in_calendar = Calendar.where(
+          "listing_id = ? AND status = ? AND day <= ? AND day >= ?",
+          listing.id, 1, end_date, start_date
+        ).limit(1)
+
+        if not_available.length > 0 || not_available_in_calendar.length > 0
           @arrListings.delete(listing)
         end
       end

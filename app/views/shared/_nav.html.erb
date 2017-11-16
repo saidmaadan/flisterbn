@@ -27,6 +27,12 @@
       <ul class="navbar-nav mr-auto">
 
         <% if user_signed_in? %>
+        <li class="nav-item">
+            <%= link_to notifications_path do %>
+              <i class="fa fa-bell fa-2x icon-flister-notification nav-link "></i>
+              <span class="badge" id="navbar_number_of_unread"><%= current_user.unread if current_user.unread > 0 %></span>
+            <% end %>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= image_tag avatar_url(current_user), class: 'rounded-circle avatar_small' %>&nbsp;

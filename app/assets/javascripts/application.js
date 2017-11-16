@@ -20,6 +20,7 @@
 //= require card
 //= require Chart.bundle
 //= require chartkick
+//= require cable
 //= require_tree .
 //= require popper
 //= require bootstrap-sprockets

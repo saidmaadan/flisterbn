@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
     @messages = @conversation.messages.order("created_at DESC")
 
     if @message.save
-      #ActionCable.server.broadcast "conversation_#{@conversation.id}", message: render_message(@message)
+      ActionCable.server.broadcast "conversation_#{@conversation.id}", message: render_message(@message)
       redirect_to conversation_messages_path(@conversation)
     end
   end
